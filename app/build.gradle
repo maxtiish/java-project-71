@@ -20,17 +20,18 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.22.0")
 }
 
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
 
 jacocoTestReport {
+    dependsOn test
     reports {
         xml.required = true
         csv.required = false
         html.required = false
     }
-}
-
-test {
-    useJUnitPlatform()
 }
 
 application {
@@ -40,4 +41,5 @@ application {
 compileJava {
     options.release = 17
 }
+
 
