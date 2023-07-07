@@ -11,16 +11,16 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: app
-          gradle-version: '7.4.2'
-      - name: Publish Code Coverage
+          gradle-version: '7.6.1'
+      - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-          JACOCO_SOURCE_PATH: "${{github.workspace}}/app/src/main/java"
+          JACOCO_SOURCE_PATH: app/src/main/java
         with:
           coverageCommand: make report
           debug: true
