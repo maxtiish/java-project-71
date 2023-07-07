@@ -3,13 +3,13 @@ package hexlet.code;
 import picocli.CommandLine;
 import java.util.concurrent.Callable;
 
-@CommandLine.Command(name="gendiff",
-        description="Compares two configuration files and shows a difference.")
+@CommandLine.Command(name = "gendiff",
+        description = "Compares two configuration files and shows a difference.")
 
 public final class App implements Callable<Integer> {
     @Override
-    public Integer call() throws Exception{
-       System.out.println(Differ.generate(filepath1, filepath2));
+    public Integer call() throws Exception {
+        System.out.println(Differ.generate(filepath1, filepath2));
         return null;
     }
     @CommandLine.Option(names = {"-f", "--format"}, defaultValue = "stylish",

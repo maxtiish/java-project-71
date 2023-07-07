@@ -12,7 +12,7 @@ import java.util.TreeSet;
 public class Differ {
     public static String generate(String filepath1, String filepath2) throws Exception {
         StringBuilder result = new StringBuilder();
-        result.append("{");
+        result.append("\n{");
 
         Path path1 = Paths.get(filepath1).toAbsolutePath().normalize();
         String content1 = Files.readString(path1);
@@ -21,10 +21,8 @@ public class Differ {
         String content2 = Files.readString(path2);
 
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> map1
-                = mapper.readValue(content1, new TypeReference<Map<String,Object>>(){});
-        Map<String, Object> map2
-                = mapper.readValue(content2, new TypeReference<Map<String,Object>>(){});
+        Map<String, Object> map1 = mapper.readValue(content1, new TypeReference<Map<String, Object>>() { });
+        Map<String, Object> map2 = mapper.readValue(content2, new TypeReference<Map<String, Object>>() { });
 
         Set<String> keys = new TreeSet<>(map1.keySet());
         keys.addAll(map2.keySet());
