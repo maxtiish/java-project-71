@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'jacoco'
 }
 
 group = 'hexlet.code'
@@ -19,6 +20,13 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.22.0")
 }
 
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
 test {
     useJUnitPlatform()
 }
@@ -30,3 +38,4 @@ application {
 compileJava {
     options.release = 17
 }
+
