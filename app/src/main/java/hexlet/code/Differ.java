@@ -38,6 +38,7 @@ public class Differ {
                 result.append("\n  - " + key + ": " + map1.get(key) + "\n" + "  + " + key + ": " + map2.get(key));
             }
         }
+
         result.append("\n}");
         return result.toString();
     }
