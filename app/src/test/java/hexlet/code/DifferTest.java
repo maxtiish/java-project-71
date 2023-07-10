@@ -26,7 +26,7 @@ public class DifferTest {
     }
 
     @Test
-    public void testIsExists() {
+    public void testIfExists() {
         var filepath1 = "src/test/resources/file.json";
         var filepath2 = "src/test/resources/file2.json";
 
@@ -40,6 +40,17 @@ public class DifferTest {
     public void testEmptyFile() throws Exception {
         var filepath1 = "src/test/resources/file1.json";
         var filepath2 = "src/test/resources/emptyFile.json";
+
+        var thrown = catchThrowable(
+                () -> Differ.generate(filepath1, filepath2)
+        );
+        assertThat(thrown).isInstanceOf(Exception.class);
+    }
+
+    @Test
+    public void wrongFilepath() throws Exception {
+        var filepath1 = "src/test/resources/file1.json";
+        var filepath2 = "hexlet";
 
         var thrown = catchThrowable(
                 () -> Differ.generate(filepath1, filepath2)
