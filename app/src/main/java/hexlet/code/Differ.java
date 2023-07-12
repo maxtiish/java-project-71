@@ -1,12 +1,5 @@
 package hexlet.code;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -17,8 +10,7 @@ public class Differ {
         Map<String, Object> map1 = new HashMap<>();
         Map<String, Object> map2 = new HashMap<>();
 
-        StringBuilder result = new StringBuilder();
-        result.append("\n{");
+        StringBuilder result = new StringBuilder("\n{");
 
         if (filepath1.endsWith("json") && filepath2.endsWith("json")) {
             map1 = Parser.readJsonFile(filepath1);
