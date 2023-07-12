@@ -5,24 +5,28 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2) throws Exception {
+        Map<String, Object> map1 = new HashMap<>();
+        Map<String, Object> map2 = new HashMap<>();
+
         StringBuilder result = new StringBuilder();
         result.append("\n{");
 
-        Path path1 = Paths.get(filepath1).toAbsolutePath().normalize();
-        String content1 = Files.readString(path1);
-
-        Path path2 = Paths.get(filepath2).toAbsolutePath().normalize();
-        String content2 = Files.readString(path2);
-
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> map1 = mapper.readValue(content1, new TypeReference<Map<String, Object>>() { });
-        Map<String, Object> map2 = mapper.readValue(content2, new TypeReference<Map<String, Object>>() { });
+        if (filepath1.endsWith("json") && filepath2.endsWith("json")) {
+            map1 = Parser.readJsonFile(filepath1);
+            map2 = Parser.readJsonFile(filepath2);
+        } else if (filepath1.endsWith("yml") && filepath2.endsWith("yml")) {
+            map1 = Parser.readYamlFile(filepath1);
+            map2 = Parser.readYamlFile(filepath2);
+        }
 
         Set<String> keys = new TreeSet<>(map1.keySet());
         keys.addAll(map2.keySet());
@@ -38,7 +42,6 @@ public class Differ {
                 result.append("\n  - " + key + ": " + map1.get(key) + "\n" + "  + " + key + ": " + map2.get(key));
             }
         }
-
         result.append("\n}");
         return result.toString();
     }
