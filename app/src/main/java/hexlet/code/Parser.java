@@ -16,7 +16,7 @@ public class Parser {
         Path path = Paths.get(filepath).toAbsolutePath().normalize();
         String content = Files.readString(path);
 
-        if(filepath.endsWith("json")) {
+        if (filepath.endsWith("json")) {
             ObjectMapper mapper = new ObjectMapper();
             map = mapper.readValue(content, new TypeReference<Map<String, Object>>() {
             });
