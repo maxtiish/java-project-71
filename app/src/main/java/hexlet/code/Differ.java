@@ -7,18 +7,10 @@ import java.util.TreeSet;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2) throws Exception {
-        Map<String, Object> map1 = new HashMap<>();
-        Map<String, Object> map2 = new HashMap<>();
-
         StringBuilder result = new StringBuilder("\n{");
 
-        if (filepath1.endsWith("json") && filepath2.endsWith("json")) {
-            map1 = Parser.readJsonFile(filepath1);
-            map2 = Parser.readJsonFile(filepath2);
-        } else if (filepath1.endsWith("yml") && filepath2.endsWith("yml")) {
-            map1 = Parser.readYamlFile(filepath1);
-            map2 = Parser.readYamlFile(filepath2);
-        }
+        var map1 = Parser.readFile(filepath1);
+        var map2 = Parser.readFile(filepath2);
 
         Set<String> keys = new TreeSet<>(map1.keySet());
         keys.addAll(map2.keySet());
