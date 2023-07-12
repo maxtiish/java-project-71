@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
     @Test
-    public void testGenerate() throws Exception {
+    public void testJsonFiles() throws Exception {
         var filepath1 = "src/test/resources/file1.json";
         var filepath2 = "src/test/resources/file2.json";
 
@@ -37,7 +37,7 @@ public class DifferTest {
     }
 
     @Test
-    public void testEmptyFile() throws Exception {
+    public void testEmptyFile() {
         var filepath1 = "src/test/resources/file1.json";
         var filepath2 = "src/test/resources/emptyFile.json";
 
@@ -48,13 +48,20 @@ public class DifferTest {
     }
 
     @Test
-    public void wrongFilepath() throws Exception {
-        var filepath1 = "src/test/resources/file1.json";
-        var filepath2 = "hexlet";
+    public void testYmlFiles() throws Exception {
+        var filepath1 = "src/test/resources/file1.yml";
+        var filepath2 = "src/test/resources/file2.yml";
 
-        var thrown = catchThrowable(
-                () -> Differ.generate(filepath1, filepath2)
-        );
-        assertThat(thrown).isInstanceOf(Exception.class);
+        var expected = "\n" + "{\n"
+                + "  - buy: true\n"
+                + "    developer: The Indie Stone\n"
+                + "  + frightening: sometimes\n"
+                + "  - name: Project Zomboid\n"
+                + "  + name: project zomboid\n"
+                + "  - version: 41.78.16\n"
+                + "}";
+        var actual = Differ.generate(filepath1, filepath2);
+
+        assertEquals(expected, actual);
     }
 }
