@@ -21,7 +21,6 @@ public class DifferTest {
                 + "  + verbose: true\n"
                 + "}";
         var actual = Differ.generate(filepath1, filepath2);
-
         assertEquals(expected, actual);
     }
 
