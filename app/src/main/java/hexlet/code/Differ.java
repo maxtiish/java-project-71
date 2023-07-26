@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -9,6 +10,19 @@ public class Differ {
 
         var map1 = Parser.readFile(filepath1);
         var map2 = Parser.readFile(filepath2);
+
+        for (Map.Entry<String, Object> element : map1.entrySet()) {
+            if (element.getValue() == null) {
+                element.setValue("null");
+            }
+            element.setValue(element.getValue().toString());
+        }
+        for (Map.Entry<String, Object> element : map2.entrySet()) {
+            if (element.getValue() == null) {
+                element.setValue("null");
+            }
+            element.setValue(element.getValue().toString());
+        }
 
         Set<String> keys = new TreeSet<>(map1.keySet());
         keys.addAll(map2.keySet());
