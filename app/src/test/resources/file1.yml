@@ -1,4 +1,7 @@
 name: Project Zomboid
 developer: The Indie Stone
-version: 41.78.16
+version:
+  - 41.78.16
+  - 145.15
+  - 40.70.13
 buy: true
