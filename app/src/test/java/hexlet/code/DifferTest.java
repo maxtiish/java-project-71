@@ -11,7 +11,6 @@ public class DifferTest {
     public void testJsonFiles() throws Exception {
         var filepath1 = "src/test/resources/file1.json";
         var filepath2 = "src/test/resources/file2.json";
-        var format = "plain";
 
         var expected1 = "\n"
                 + "{\n"
@@ -55,8 +54,44 @@ public class DifferTest {
                 + "Property 'setting1' was updated. From 'Some value' to 'Another value'\n"
                 + "Property 'setting2' was updated. From 200 to 300\n"
                 + "Property 'setting3' was updated. From true to 'none'";
-        var actual2 = Differ.generate(filepath1, filepath2, format);
+        var format2 = "plain";
+        var actual2 = Differ.generate(filepath1, filepath2, format2);
         assertEquals(expected2, actual2);
+
+        var expected3 = "[ {\n"
+                + "  \"setting1\" : \"Some value\",\n"
+                + "  \"setting2\" : 200,\n"
+                + "  \"setting3\" : true,\n"
+                + "  \"key1\" : \"value1\",\n"
+                + "  \"numbers1\" : [ 1, 2, 3, 4 ],\n"
+                + "  \"numbers2\" : [ 2, 3, 4, 5 ],\n"
+                + "  \"id\" : 45,\n"
+                + "  \"default\" : null,\n"
+                + "  \"checked\" : false,\n"
+                + "  \"numbers3\" : [ 3, 4, 5 ],\n"
+                + "  \"chars1\" : [ \"a\", \"b\", \"c\" ],\n"
+                + "  \"chars2\" : [ \"d\", \"e\", \"f\" ]\n"
+                + "}, {\n"
+                + "  \"setting1\" : \"Another value\",\n"
+                + "  \"setting2\" : 300,\n"
+                + "  \"setting3\" : \"none\",\n"
+                + "  \"key2\" : \"value2\",\n"
+                + "  \"numbers1\" : [ 1, 2, 3, 4 ],\n"
+                + "  \"numbers2\" : [ 22, 33, 44, 55 ],\n"
+                + "  \"id\" : null,\n"
+                + "  \"default\" : [ \"value1\", \"value2\" ],\n"
+                + "  \"checked\" : true,\n"
+                + "  \"numbers4\" : [ 4, 5, 6 ],\n"
+                + "  \"chars1\" : [ \"a\", \"b\", \"c\" ],\n"
+                + "  \"chars2\" : false,\n"
+                + "  \"obj1\" : {\n"
+                + "    \"nestedKey\" : \"value\",\n"
+                + "    \"isNested\" : true\n"
+                + "  }\n"
+                + "} ]";
+        var format3 = "json";
+        var actual3 = Differ.generate(filepath1, filepath2, format3);
+        assertEquals(expected3, actual3);
     }
 
     @Test
@@ -91,7 +126,7 @@ public class DifferTest {
         var expected1 = "\n"
                 + "{\n"
                 + "  - buy: true\n"
-                + "  + characteristics: [funny to play, difficult, interesting, u will never be alone again]\n"
+                + "  + characteristics: [funny to play, difficult, interesting]\n"
                 + "    developer: The Indie Stone\n"
                 + "  + frightening: sometimes\n"
                 + "  - name: Project Zomboid\n"
@@ -109,5 +144,20 @@ public class DifferTest {
                 + "Property 'version' was removed";
         var actual2 = Differ.generate(filepath1, filepath2, format);
         assertEquals(expected2, actual2);
+
+        var expected3 = "[ {\n"
+                + "  \"name\" : \"Project Zomboid\",\n"
+                + "  \"developer\" : \"The Indie Stone\",\n"
+                + "  \"version\" : [ \"41.78.16\", 145.15, \"40.70.13\" ],\n"
+                + "  \"buy\" : true\n"
+                + "}, {\n"
+                + "  \"developer\" : \"The Indie Stone\",\n"
+                + "  \"frightening\" : \"sometimes\",\n"
+                + "  \"name\" : \"project zomboid\",\n"
+                + "  \"characteristics\" : [ \"funny to play\", \"difficult\", \"interesting\" ]\n"
+                + "} ]";
+        var format3 = "json";
+        var actual3 = Differ.generate(filepath1, filepath2, format3);
+        assertEquals(expected3, actual3);
     }
 }

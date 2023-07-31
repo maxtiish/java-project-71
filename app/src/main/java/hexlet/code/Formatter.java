@@ -1,17 +1,21 @@
 package hexlet.code;
 
-import hexlet.code.formatters.Plain;
-import hexlet.code.formatters.Stylish;
+import hexlet.code.formatters.JsonFormat;
+import hexlet.code.formatters.PlainFormat;
+import hexlet.code.formatters.StylishFormat;
 
 import java.util.Map;
 
 public class Formatter {
-    public static String chooseFormat(Map<String, Object> map1, Map<String, Object> map2, String format) {
+    public static String chooseFormat(Map<String, Object> map1, Map<String, Object> map2, String format)
+            throws Exception {
         switch (format) {
             case "plain":
-                return Plain.makePlain(map1, map2);
+                return PlainFormat.makePlain(map1, map2);
+            case "json":
+                return JsonFormat.makeJson(map1, map2);
             default:
-                return Stylish.makeStylish(map1, map2);
+                return StylishFormat.makeStylish(map1, map2);
         }
     }
 }
