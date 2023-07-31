@@ -1,44 +1,19 @@
 package hexlet.code;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import hexlet.code.formatters.Stylish;
 
 public class Differ {
-    public static String generate(String filepath1, String filepath2) throws Exception {
-        StringBuilder result = new StringBuilder("\n{");
-
+    public static String generate(String filepath1, String filepath2, String format) throws Exception {
         var map1 = Parser.readFile(filepath1);
         var map2 = Parser.readFile(filepath2);
 
-        for (Map.Entry<String, Object> element : map1.entrySet()) {
-            if (element.getValue() == null) {
-                element.setValue("null");
-            }
-            element.setValue(element.getValue().toString());
-        }
-        for (Map.Entry<String, Object> element : map2.entrySet()) {
-            if (element.getValue() == null) {
-                element.setValue("null");
-            }
-            element.setValue(element.getValue().toString());
-        }
+        return Formatter.chooseFormat(map1, map2, format);
+    }
 
-        Set<String> keys = new TreeSet<>(map1.keySet());
-        keys.addAll(map2.keySet());
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        var map1 = Parser.readFile(filepath1);
+        var map2 = Parser.readFile(filepath2);
 
-        for (String key : keys) {
-            if (!map1.containsKey(key)) {
-                result.append("\n  + " + key + ": " + map2.get(key));
-            } else if (!map2.containsKey(key)) {
-                result.append("\n  - " + key + ": " + map1.get(key));
-            } else if (map1.get(key).equals(map2.get(key))) {
-                result.append("\n    " + key + ": " + map1.get(key));
-            } else {
-                result.append("\n  - " + key + ": " + map1.get(key) + "\n" + "  + " + key + ": " + map2.get(key));
-            }
-        }
-        result.append("\n}");
-        return result.toString();
+        return Stylish.makeStylish(map1, map2);
     }
 }

@@ -11,8 +11,9 @@ public class DifferTest {
     public void testJsonFiles() throws Exception {
         var filepath1 = "src/test/resources/file1.json";
         var filepath2 = "src/test/resources/file2.json";
+        var format = "plain";
 
-        var expected = "\n"
+        var expected1 = "\n"
                 + "{\n"
                 + "    chars1: [a, b, c]\n"
                 + "  - chars2: [d, e, f]\n"
@@ -38,8 +39,24 @@ public class DifferTest {
                 + "  - setting3: true\n"
                 + "  + setting3: none\n"
                 + "}";
-        var actual = Differ.generate(filepath1, filepath2);
-        assertEquals(expected, actual);
+        var actual1 = Differ.generate(filepath1, filepath2);
+        assertEquals(expected1, actual1);
+
+        var expected2 = "\n"
+                + "Property 'chars2' was updated. From [complex value] to false\n"
+                + "Property 'checked' was updated. From false to true\n"
+                + "Property 'default' was updated. From null to [complex value]\n"
+                + "Property 'id' was updated. From 45 to null\n"
+                + "Property 'key1' was removed\n"
+                + "Property 'key2' was added with value: 'value2'\n"
+                + "Property 'numbers3' was removed\n"
+                + "Property 'numbers4' was added with value: [complex value]\n"
+                + "Property 'obj1' was added with value: [complex value]\n"
+                + "Property 'setting1' was updated. From 'Some value' to 'Another value'\n"
+                + "Property 'setting2' was updated. From 200 to 300\n"
+                + "Property 'setting3' was updated. From true to 'none'";
+        var actual2 = Differ.generate(filepath1, filepath2, format);
+        assertEquals(expected2, actual2);
     }
 
     @Test
@@ -57,9 +74,10 @@ public class DifferTest {
     public void testEmptyFile() {
         var filepath1 = "src/test/resources/file1.json";
         var filepath2 = "src/test/resources/emptyFile.json";
+        var format = "stylish";
 
         var thrown = catchThrowable(
-                () -> Differ.generate(filepath1, filepath2)
+                () -> Differ.generate(filepath1, filepath2, format)
         );
         assertThat(thrown).isInstanceOf(Exception.class);
     }
@@ -68,8 +86,9 @@ public class DifferTest {
     public void testYmlFiles() throws Exception {
         var filepath1 = "src/test/resources/file1.yml";
         var filepath2 = "src/test/resources/file2.yml";
+        var format = "plain";
 
-        var expected = "\n"
+        var expected1 = "\n"
                 + "{\n"
                 + "  - buy: true\n"
                 + "  + characteristics: [funny to play, difficult, interesting, u will never be alone again]\n"
@@ -79,8 +98,16 @@ public class DifferTest {
                 + "  + name: project zomboid\n"
                 + "  - version: [41.78.16, 145.15, 40.70.13]\n"
                 + "}";
-        var actual = Differ.generate(filepath1, filepath2);
+        var actual1 = Differ.generate(filepath1, filepath2);
+        assertEquals(expected1, actual1);
 
-        assertEquals(expected, actual);
+        var expected2 = "\n"
+                + "Property 'buy' was removed\n"
+                + "Property 'characteristics' was added with value: [complex value]\n"
+                + "Property 'frightening' was added with value: 'sometimes'\n"
+                + "Property 'name' was updated. From 'Project Zomboid' to 'project zomboid'\n"
+                + "Property 'version' was removed";
+        var actual2 = Differ.generate(filepath1, filepath2, format);
+        assertEquals(expected2, actual2);
     }
 }
