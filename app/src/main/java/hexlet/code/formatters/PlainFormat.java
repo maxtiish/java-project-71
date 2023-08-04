@@ -30,7 +30,7 @@ public class PlainFormat {
                     throw new Exception("invalid category");
             }
         }
-        return result.toString();
+        return result.toString().trim();
     }
 
     public static String convertToString(Object value) {

@@ -52,7 +52,7 @@ public class DifferTest {
                 + "Property 'obj1' was added with value: [complex value]\n"
                 + "Property 'setting1' was updated. From 'Some value' to 'Another value'\n"
                 + "Property 'setting2' was updated. From 200 to 300\n"
-                + "Property 'setting3' was updated. From true to 'none'\n";
+                + "Property 'setting3' was updated. From true to 'none'";
         var format2 = "plain";
         var actual2 = Differ.generate(filepath1, filepath2, format2);
         assertEquals(expected2, actual2);
@@ -179,7 +179,7 @@ public class DifferTest {
                 + "Property 'characteristics' was added with value: [complex value]\n"
                 + "Property 'frightening' was added with value: 'sometimes'\n"
                 + "Property 'name' was updated. From 'Project Zomboid' to 'project zomboid'\n"
-                + "Property 'version' was removed\n";
+                + "Property 'version' was removed";
         var actual2 = Differ.generate(filepath1, filepath2, format);
         assertEquals(expected2, actual2);
 
