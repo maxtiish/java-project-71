@@ -24,12 +24,12 @@ public class DifferDefiner {
                 map.put("type", "deleted");
                 map.put("value", map1.get(key));
             } else if (compareValues(map1.get(key), map2.get(key))) {
+                map.put("type", "unchanged");
+                map.put("value", map1.get(key));
+            } else {
                 map.put("type", "changed");
                 map.put("value1", map1.get(key));
                 map.put("value2", map2.get(key));
-            } else {
-                map.put("type", "unchanged");
-                map.put("value", map1.get(key));
             }
             result.add(map);
         }
