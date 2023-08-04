@@ -1,26 +1,33 @@
 package hexlet.code.formatters;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+
 
 public class PlainFormat {
-    public static String makePlain(Map<String, Object> map1, Map<String, Object> map2) {
+    public static String makePlain(List<Map<String, Object>> list)  throws Exception {
         StringBuilder result = new StringBuilder();
 
-        Set<String> keys = new TreeSet<>(map1.keySet());
-        keys.addAll(map2.keySet());
-
-        for (String key : keys) {
-            var value1 = convertToString(map1.get(key));
-            var value2 = convertToString(map2.get(key));
-
-            if (!map1.containsKey(key)) {
-                result.append("\nProperty '" + key + "' was added with value: " + value2);
-            } else if (!map2.containsKey(key)) {
-                result.append("\nProperty '" + key + "' was removed");
-            } else if (!value1.equals(value2)) {
-                result.append("\nProperty '" + key + "' was updated. From " + value1 + " to " + value2);
+        for (Map<String, Object> map : list) {
+            switch (map.get("type").toString()) {
+                case "added":
+                    var value = convertToString(map.get("value"));
+                    result.append("Property '" + map.get("key") + "' was added with value: " + value);
+                    result.append("\n");
+                    break;
+                case "deleted":
+                    result.append("Property '" + map.get("key") + "' was removed" + "\n");
+                    break;
+                case "changed":
+                    var value1 = convertToString(map.get("value1"));
+                    var value2 = convertToString(map.get("value2"));
+                    result.append("Property '" + map.get("key") + "' was updated. ");
+                    result.append("From " + value1 + " to " + value2 + "\n");
+                    break;
+                case "unchanged":
+                    break;
+                default:
+                    throw new Exception("invalid category");
             }
         }
         return result.toString();

@@ -4,18 +4,19 @@ import hexlet.code.formatters.JsonFormat;
 import hexlet.code.formatters.PlainFormat;
 import hexlet.code.formatters.StylishFormat;
 
+import java.util.List;
 import java.util.Map;
 
 public class Formatter {
-    public static String chooseFormat(Map<String, Object> map1, Map<String, Object> map2, String format)
+    public static String chooseFormat(List<Map<String, Object>> list, String format)
             throws Exception {
         switch (format) {
             case "plain":
-                return PlainFormat.makePlain(map1, map2);
+                return PlainFormat.makePlain(list);
             case "json":
-                return JsonFormat.makeJson(map1, map2);
+                return JsonFormat.makeJson(list);
             default:
-                return StylishFormat.makeStylish(map1, map2);
+                return StylishFormat.makeStylish(list);
         }
     }
 }
