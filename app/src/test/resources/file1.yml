@@ -1,7 +1,31 @@
-name: Project Zomboid
-developer: The Indie Stone
-version:
-  - 41.78.16
-  - 145.15
-  - 40.70.13
-buy: true
+---
+setting1: Some value
+setting2: 200
+setting3: true
+key1: value1
+numbers1:
+  - 1
+  - 2
+  - 3
+  - 4
+numbers2:
+  - 2
+  - 3
+  - 4
+  - 5
+id: 45
+default:
+checked: false
+numbers3:
+  - 3
+  - 4
+  - 5
+chars1:
+  - a
+  - b
+  - c
+chars2:
+  - d
+  - e
+  - f
+...
