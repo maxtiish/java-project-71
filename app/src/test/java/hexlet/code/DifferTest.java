@@ -18,7 +18,7 @@ public class DifferTest {
     private static String filePlain;
     private static JsonNode fileJson;
     @BeforeEach
-    public void beforeEach() throws Exception {
+    public static void beforeEach() throws Exception {
         Path pathStylish = Path.of("src/test/resources/stylishResult.txt");
         fileStylish = Files.readString(pathStylish);
 
