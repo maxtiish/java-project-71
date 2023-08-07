@@ -2,7 +2,7 @@ package hexlet.code;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
@@ -17,8 +17,8 @@ public class DifferTest {
     private static String fileStylish;
     private static String filePlain;
     private static JsonNode fileJson;
-    @BeforeEach
-    public static void beforeEach() throws Exception {
+    @BeforeAll
+    public static void beforeAll() throws Exception {
         Path pathStylish = Path.of("src/test/resources/stylishResult.txt");
         fileStylish = Files.readString(pathStylish);
 
