@@ -19,41 +19,37 @@ public class DifferTest {
     private static JsonNode fileJson;
     @BeforeAll
     public static void beforeAll() throws Exception {
-        Path pathStylish = Path.of("src/test/resources/stylishResult.txt");
-        fileStylish = Files.readString(pathStylish);
+        fileStylish = readFile(getPath("stylishResult.txt"));
 
-        Path pathPlain = Path.of("src/test/resources/plainResult.txt");
-        filePlain = Files.readString(pathPlain);
+        filePlain = readFile(getPath("plainResult.txt"));
 
         ObjectMapper objectMapper = new ObjectMapper();
-        Path pathJson = Path.of("src/test/resources/jsonResult.txt");
-        fileJson = objectMapper.readTree(Files.readString(pathJson));
+        fileJson = objectMapper.readTree(readFile(getPath("jsonResult.txt")));
     }
 
     @Test
     public void testJsonFiles() throws Exception {
-        var filepath1 = "src/test/resources/file1.json";
-        var filepath2 = "src/test/resources/file2.json";
-        var expected1 = fileStylish;
+        var filepath1 = getPath("file1.json");
+        var filepath2 = getPath("file2.json");
+
         var actual1 = Differ.generate(filepath1, filepath2);
-        assertEquals(expected1, actual1);
+        assertEquals(fileStylish, actual1);
 
-        var expected2 = filePlain;
-        var format2 = "plain";
-        var actual2 = Differ.generate(filepath1, filepath2, format2);
-        assertEquals(expected2, actual2);
+        var actual2 = Differ.generate(filepath1, filepath2, "stylish");
+        assertEquals(fileStylish, actual2);
 
-        var expected3 = fileJson;
-        var format3 = "json";
+        var actual3 = Differ.generate(filepath1, filepath2, "plain");
+        assertEquals(filePlain, actual3);
+
         ObjectMapper objectMapper = new ObjectMapper();
-        var actual3 = objectMapper.readTree(Differ.generate(filepath1, filepath2, format3));
-        assertEquals(expected3, actual3);
+        var actual4 = objectMapper.readTree(Differ.generate(filepath1, filepath2, "json"));
+        assertEquals(fileJson, actual4);
     }
 
     @Test
     public void testIfExists() {
-        var filepath1 = "src/test/resources/file.json";
-        var filepath2 = "src/test/resources/file2.json";
+        var filepath1 = getPath("file.json");
+        var filepath2 = getPath("file2.json");
 
         var thrown = catchThrowable(
                 () -> Differ.generate(filepath1, filepath2)
@@ -63,8 +59,8 @@ public class DifferTest {
 
     @Test
     public void testEmptyFile() {
-        var filepath1 = "src/test/resources/file1.json";
-        var filepath2 = "src/test/resources/emptyFile.json";
+        var filepath1 = getPath("file1.json");
+        var filepath2 = getPath("emptyFile.json");
         var format = "stylish";
 
         var thrown = catchThrowable(
@@ -75,22 +71,29 @@ public class DifferTest {
 
     @Test
     public void testYmlFiles() throws Exception {
-        var filepath1 = "src/test/resources/file1.yml";
-        var filepath2 = "src/test/resources/file2.yml";
-        var format = "plain";
+        var filepath1 = getPath("file1.yml");
+        var filepath2 = getPath("file2.yml");
 
-        var expected1 = fileStylish;
         var actual1 = Differ.generate(filepath1, filepath2);
-        assertEquals(expected1, actual1);
+        assertEquals(fileStylish, actual1);
 
-        var expected2 = filePlain;
-        var actual2 = Differ.generate(filepath1, filepath2, format);
-        assertEquals(expected2, actual2);
+        var actual2 = Differ.generate(filepath1, filepath2, "stylish");
+        assertEquals(fileStylish, actual2);
 
-        var expected3 = fileJson;
-        var format3 = "json";
+        var actual3 = Differ.generate(filepath1, filepath2, "plain");
+        assertEquals(filePlain, actual3);
+
         ObjectMapper objectMapper = new ObjectMapper();
-        var actual3 = objectMapper.readTree(Differ.generate(filepath1, filepath2, format3));
-        assertEquals(expected3, actual3);
+        var actual4 = objectMapper.readTree(Differ.generate(filepath1, filepath2, "json"));
+        assertEquals(fileJson, actual4);
+    }
+
+    public static String getPath(String file) {
+        return "src/test/resources/" + file;
+    }
+
+    public static String readFile(String filepath) throws Exception {
+        Path path = Path.of(filepath);
+        return Files.readString(path);
     }
 }

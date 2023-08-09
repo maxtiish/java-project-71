@@ -11,7 +11,7 @@ public class PlainFormat {
         for (Map<String, Object> map : list) {
             switch (map.get("type").toString()) {
                 case "added":
-                    var value = convertToString(map.get("value"));
+                    String value = convertToString(map.get("value"));
                     result.append("Property '" + map.get("key") + "' was added with value: " + value);
                     result.append("\n");
                     break;
@@ -19,8 +19,8 @@ public class PlainFormat {
                     result.append("Property '" + map.get("key") + "' was removed" + "\n");
                     break;
                 case "changed":
-                    var value1 = convertToString(map.get("value1"));
-                    var value2 = convertToString(map.get("value2"));
+                    String value1 = convertToString(map.get("value1"));
+                    String value2 = convertToString(map.get("value2"));
                     result.append("Property '" + map.get("key") + "' was updated. ");
                     result.append("From " + value1 + " to " + value2 + "\n");
                     break;

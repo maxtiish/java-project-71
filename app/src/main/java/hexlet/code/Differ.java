@@ -3,6 +3,8 @@ package hexlet.code;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
 
 
 public class Differ {
@@ -17,7 +19,7 @@ public class Differ {
         String format2 = findFormat(filepath2);
         var map2 = Parser.readFile(file2, format2);
 
-        var result = DifferDefiner.findDifference(map1, map2);
+        List<Map<String, Object>> result = DifferDefiner.findDifference(map1, map2);
 
         return Formatter.chooseFormat(result, format);
     }

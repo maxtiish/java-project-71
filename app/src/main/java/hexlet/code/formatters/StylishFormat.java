@@ -16,8 +16,8 @@ public class StylishFormat {
                     result.append("  - " + map.get("key") + ": " + map.get("value") + "\n");
                     break;
                 case "changed":
-                    var value1 = convertToString(map.get("value1"));
-                    var value2 = convertToString(map.get("value2"));
+                    String value1 = convertToString(map.get("value1"));
+                    String value2 = convertToString(map.get("value2"));
                     result.append("  - " + map.get("key") + ": " + value1 + "\n");
                     result.append("  + " + map.get("key") + ": " + value2 + "\n");
                     break;
