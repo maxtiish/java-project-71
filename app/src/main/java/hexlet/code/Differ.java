@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
         String file1 = readFile(filepath1);
