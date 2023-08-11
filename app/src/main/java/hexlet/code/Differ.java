@@ -9,13 +9,11 @@ import java.util.Map;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
-        Path content1 = Paths.get(filepath1).toAbsolutePath().normalize();
-        String file1 = Files.readString(content1);
+        String file1 = readFile(filepath1);
         String format1 = findFormat(filepath1);
         var map1 = Parser.readFile(file1, format1);
 
-        Path content2 = Paths.get(filepath2).toAbsolutePath().normalize();
-        String file2 = Files.readString(content2);
+        String file2 = readFile(filepath2);
         String format2 = findFormat(filepath2);
         var map2 = Parser.readFile(file2, format2);
 
@@ -30,5 +28,10 @@ public class Differ {
 
     public static String findFormat(String filepath) {
         return filepath.substring(filepath.lastIndexOf('.') + 1);
+    }
+
+    public static String readFile(String filepath) throws Exception {
+        Path path = Path.of(filepath);
+        return Files.readString(path);
     }
 }

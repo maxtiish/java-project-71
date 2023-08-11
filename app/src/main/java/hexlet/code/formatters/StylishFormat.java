@@ -25,7 +25,7 @@ public class StylishFormat {
                     result.append("    " + map.get("key") + ": " + map.get("value") + "\n");
                     break;
                 default:
-                    throw new Exception("invalid category");
+                    throw new Exception("invalid type");
             }
         }
         result.append("}");

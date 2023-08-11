@@ -17,6 +17,7 @@ public class DifferTest {
     private static String fileStylish;
     private static String filePlain;
     private static JsonNode fileJson;
+
     @BeforeAll
     public static void beforeAll() throws Exception {
         fileStylish = readFile(getPath("stylishResult.txt"));

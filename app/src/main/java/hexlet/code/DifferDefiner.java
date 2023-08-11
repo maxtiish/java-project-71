@@ -32,6 +32,7 @@ public class DifferDefiner {
                 map.put("value2", map2.get(key));
             }
             result.add(map);
+
         }
         return result;
     }
