@@ -7,16 +7,7 @@ import java.util.Map;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
-        String file1 = readFile(filepath1);
-        String format1 = findFormat(filepath1);
-        var map1 = Parser.readFile(file1, format1);
-
-        String file2 = readFile(filepath2);
-        String format2 = findFormat(filepath2);
-        var map2 = Parser.readFile(file2, format2);
-
-        List<Map<String, Object>> result = DifferDefiner.findDifference(map1, map2);
-
+        List<Map<String, Object>> result = DifferDefiner.findDifference(getMap(filepath1), getMap(filepath2));
         return Formatter.chooseFormat(result, format);
     }
 
@@ -29,7 +20,12 @@ public class Differ {
     }
 
     public static String readFile(String filepath) throws Exception {
-        Path path = Path.of(filepath);
+        Path path = Path.of(filepath).toAbsolutePath().normalize();
         return Files.readString(path);
+    }
+
+    public static Map<String, Object> getMap(String filepath) throws Exception {
+        String file = readFile(filepath);
+        return Parser.readFile(file, findFormat(filepath));
     }
 }
