@@ -7,7 +7,7 @@
 * Use ```make install``` command to create a .jar file;
 * Use make ```run-dist -h```.
 
-## Usind as a library
+## Using as a library
 * Download files;
 * Use ```make install``` command to create a .jar file;
 * Put the .jar file in the same folder as your code;
